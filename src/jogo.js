@@ -1,6 +1,6 @@
 import Game from '../componentes/Game.js';
 import menu from '../telas/Menu.js';
-import jogo from '../telas/jogo.js';
+import jogo from '../telas/Jogo.js';
 
 window.onload = () => {
     const canvas = document.getElementById('jogo');
