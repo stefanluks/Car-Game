@@ -42,10 +42,6 @@ window.onload = () => {
     game.AdicionarTela(menu);
     game.AdicionarTela(jogo);
 
-    let nextLevel = document.createElement('div');
-    nextLevel.className = "nextLevel";
-    nextLevel.innerHTML = `Nível 01`;
-
     Loop();
 
     function Loop() {
