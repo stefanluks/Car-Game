@@ -11,6 +11,26 @@ window.onload = () => {
         dimensao: { x: canvas.width, y: canvas.height },
     });
 
+    const saveGame = {
+        nome: "SaveGame",
+        urlPost: 'https://cargameranking.herokuapp.com/api/Saves/',
+        PostSave(nome, pontos) {
+            fetch(this.urlPost, {
+                method: "POST",
+                cors: "no-cors",
+                dataType: "json",
+                Accept: "application/json",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nome: nome,
+                    pontos: pontos
+                })
+            }).then(res => res.json());
+        }
+    }
+
     window.addEventListener('keydown', (e) => {
         game.teclasPressionada(e.key);
     });
@@ -35,7 +55,45 @@ window.onload = () => {
         let msg = document.createElement('div');
         msg.classList.add('msg');
         msg.id = "msg-caixa";
-        msg.innerHTML = `<div class="caixa"><h1>Game Over</h1><p>Você fez ${game.pontos} pontos</p><button onclick="window.location.reload()">Reiniciar</button></div>`;
+
+        let caixa = document.createElement('div');
+        caixa.className = "caixa";
+
+        let h1 = document.createElement('h1');
+        h1.innerHTML = "Game Over";
+
+        let p = document.createElement('p');
+        p.innerHTML = `Você fez ${game.pontos} pontos`;
+
+        let input = document.createElement('input');
+        input.type = "text";
+        input.placeholder = "Digite seu nome:";
+        input.className = "inputNome";
+
+        let btnSave = document.createElement('button');
+        btnSave.innerHTML = "Salvar";
+        btnSave.className = "btnSave";
+        btnSave.addEventListener('click', () => {
+            if (input.value != "") {
+                saveGame.PostSave(input.value, game.pontos);
+                input.remove()
+                btnSave.remove();
+                p.innerHTML = "Salvo com sucesso!";
+            }
+        });
+
+        let btn = document.createElement('button');
+        btn.innerHTML = "Reiniciar";
+        btn.onclick = () => {
+            window.location.reload();
+        };
+        caixa.appendChild(h1);
+        caixa.appendChild(p);
+        caixa.appendChild(input);
+        caixa.appendChild(btnSave);
+        caixa.appendChild(btn);
+        msg.appendChild(caixa);
+
         document.querySelector("body").appendChild(msg);
     };
 

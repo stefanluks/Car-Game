@@ -14,7 +14,6 @@ export default class Game {
     }
 
     proxTela() {
-        console.log("proxTela");
         let indice = 0;
         this.telas.forEach((tela, index) => {
             if (tela == this.telaAtiva) indice = index;

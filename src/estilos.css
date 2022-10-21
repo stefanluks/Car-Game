@@ -32,11 +32,22 @@ body {
     top: 0px;
     width: 100%;
     height: 100%;
+    transition: .7s;
     background-color: rgba(240, 248, 255, 0.445);
     display: flex;
     align-items: center;
     justify-content: center;
     animation: gameOver normal 1s;
+}
+
+.inputNome {
+    width: 50%;
+    height: 40px;
+    padding: 0px 5px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 18px;
+    margin: 5px 0px;
 }
 
 .caixa {
@@ -49,17 +60,21 @@ body {
     background-color: #703a3a6b;
     border: 2px solid black;
     border-radius: 35px;
+    transition: .7s;
 }
 
 .caixa h1 {
     color: red;
     font-size: 45px;
     text-shadow: 2px 2px 0px #000;
+    transition: .8s;
 }
 
 .caixa p {
     font-size: 25px;
     color: #000;
+    text-shadow: 0 0 3px white;
+    transition: .7s;
 }
 
 .caixa button {

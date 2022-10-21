@@ -1,9 +1,10 @@
 export default class Tela {
-    constructor(nome, ativo) {
+    constructor(nome, ativo, a = null) {
         this.nome = nome;
         this.ativo = ativo;
         this.teclasDown = {};
         this.teclasUp = {};
+        this.adicional = a;
     }
 
     Atualizar() {

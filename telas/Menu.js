@@ -1,6 +1,51 @@
 import Tela from '../componentes/Tela.js';
 
-const menu = new Tela("Menu", true);
+const ranking = {
+    nome: "ranking",
+    rank: [],
+    frame: 0,
+    urlTop10: 'https://cargameranking.herokuapp.com/api/GetTop10/',
+    draw(ctx, dimensao) {
+        this.frame++;
+        // console.log(this.rank)
+        if (this.rank.length > 0) {
+            // ctx.fillStyle = 'gray';
+            // ctx.fillRect(30, dimensao.y - (dimensao.y / 2), 150, 100);
+            ctx.fillStyle = 'white';
+            ctx.font = '30px Arial';
+            ctx.fillText("Ranking", 30, dimensao.y - (dimensao.y / 2));
+            this.rank.forEach((item, index) => {
+                ctx.font = '15px Arial';
+                ctx.fillText(item.pos + "° lugar: " + item.nome + " com " + item.pontos + " pontos", 30, dimensao.y - (dimensao.y / 2) + ((index + 1) * 20));
+            });
+        } else {
+            let titulo = "Carregando ranking";
+            if (this.frame % 10 == 0) {
+                titulo += ".";
+            };
+            ctx.fillStyle = 'white';
+            ctx.font = '30px Arial';
+            ctx.fillText(titulo, 30, dimensao.y - (dimensao.y / 2));
+        }
+    },
+    GetRanking() {
+        fetch(this.urlTop10, {
+            method: "GET",
+            cors: "no-cors",
+            dataType: "json",
+            Accept: "application/json",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => res.json()).then(res => {
+            this.rank = res;
+        });
+    }
+}
+
+ranking.GetRanking();
+
+const menu = new Tela("Menu", true, ranking);
 
 menu.faixas = [
     { y: 0, largura: 25, altura: 80 },
@@ -82,6 +127,9 @@ menu.Draw = (ctx, dimensao) => {
     // ctx.fillStyle = 'red';
     // ctx.fillRect(menu.carro.x, menu.carro.y, menu.carro.largura, menu.carro.altura);
     ctx.drawImage(menu.carro.img, 0, 0, menu.carro.img_w, menu.carro.img_h, menu.carro.x, menu.carro.y, menu.carro.largura, menu.carro.altura);
+
+    //ranking
+    if (menu.adicional != null) menu.adicional.draw(ctx, dimensao);
 };
 
 menu.teclasDown = {
