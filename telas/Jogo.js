@@ -40,7 +40,7 @@ jogo.carro = {
 let posicoes = [-75, 25];
 
 jogo.enimigos = [
-    { x: 537, y: -100, largura: 50, altura: 100 }
+    { tipo: 1, x: 537, y: -100, largura: 50, altura: 100 }
 ];
 
 function Controlefaixas(faixas, altura) {
@@ -96,14 +96,19 @@ jogo.Atualizar = (dimensao) => {
 
         if (jogo.liberarEnimigos) {
             jogo.enimigos.forEach((enimigo, index) => {
-                enimigo.y += jogo.nivel * 2;
+                if (enimigo.tipo == 1) enimigo.y += jogo.nivel * 2;
+                else enimigo.y += jogo.nivel * 3;
                 if (enimigo.y > dimensao.y + 10) {
                     jogo.enimigos.splice(index, 1);
                     jogo.game.pontos++;
                 }
             });
             let ult = jogo.enimigos[jogo.enimigos.length - 1];
-            if (ult.y > dimensao.y / 2) jogo.enimigos.push({ x: dimensao.x / 2 + posicoes[(Math.floor(Math.random() * 2))], y: -100, largura: 50, altura: 100 });
+            if (ult.y > dimensao.y / 2) {
+                let tipo = (Math.floor(Math.random() * 2));
+                if (tipo == 1) jogo.enimigos.push({ tipo: tipo, x: dimensao.x / 2 + posicoes[(Math.floor(Math.random() * 2))], y: -100, largura: 50, altura: 100 });
+                else jogo.enimigos.push({ tipo: tipo, x: dimensao.x / 2 + posicoes[(Math.floor(Math.random() * 2))], y: -100, largura: 50, altura: 120 });
+            }
         }
 
         if (colidio(jogo.carro, jogo.enimigos)) {
@@ -112,8 +117,10 @@ jogo.Atualizar = (dimensao) => {
     }
 };
 
-let enimigoImg = new Image();
-enimigoImg.src = "./assets/carro2.png";
+let enimigo1Img = new Image();
+enimigo1Img.src = "./assets/carro2.png";
+let enimigo2Img = new Image();
+enimigo2Img.src = "./assets/ambulancia.png";
 
 jogo.Draw = (ctx, dimensao) => {
     ctx.fillStyle = 'green';
@@ -144,7 +151,9 @@ jogo.Draw = (ctx, dimensao) => {
     jogo.enimigos.forEach(enimigo => {
         // ctx.fillStyle = 'blue';
         // ctx.fillRect(enimigo.x, enimigo.y, enimigo.largura, enimigo.altura);
-        ctx.drawImage(enimigoImg, 0, 0, 260, 550, enimigo.x, enimigo.y, enimigo.largura, enimigo.altura);
+        if (enimigo.tipo == 1) ctx.drawImage(enimigo1Img, 0, 0, 260, 550, enimigo.x, enimigo.y, enimigo.largura, enimigo.altura);
+        else ctx.drawImage(enimigo2Img, 0, 0, 260, 640, enimigo.x, enimigo.y, enimigo.largura, enimigo.altura);
+
     });
 
     // Pontos!!
