@@ -14,13 +14,19 @@ const ranking = {
             ctx.fillStyle = 'white';
             ctx.font = '30px Arial';
             ctx.fillText("Ranking", 30, dimensao.y - (dimensao.y / 2));
-            this.rank.forEach((item, index) => {
+            for (let i = 0; i < 10; i++) {
                 ctx.font = '15px Arial';
-                ctx.fillText(item.pos + "° lugar: " + item.nome + " com " + item.pontos + " pontos", 30, dimensao.y - (dimensao.y / 2) + ((index + 1) * 20));
-            });
+                if (i < this.rank.length) {
+                    let item = this.rank[i];
+                    ctx.fillText(item.pos + "° lugar: " + item.nome + " com " + item.pontos + " pontos", 30, dimensao.y - (dimensao.y / 2) + ((i + 1) * 20));
+                } else {
+                    ctx.fillText((i + 1) + "° lugar: -- ", 30, dimensao.y - (dimensao.y / 2) + ((i + 1) * 20));
+                }
+            }
+            this.rank.forEach((item, index) => {});
         } else {
-            let titulo = "Carregando ranking";
-            if (this.frame % 10 == 0) {
+            let titulo = "Carregando ranking.";
+            if (this.frame % 100 == 0) {
                 titulo += ".";
             };
             ctx.fillStyle = 'white';
