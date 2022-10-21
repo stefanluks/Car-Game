@@ -2,6 +2,7 @@ import Tela from '../componentes/Tela.js';
 
 const jogo = new Tela("Jogo", false);
 
+jogo.objetivo = 0;
 jogo.nivel = 0;
 jogo.liberarEnimigos = false;
 
@@ -61,8 +62,9 @@ function Cenario(blocos, altura) {
 }
 
 function controlePontos() {
-    if (jogo.game.pontos == (jogo.nivel * 2) * 5) {
+    if (jogo.game.pontos >= jogo.objetivo + (jogo.nivel * 2) * 5) {
         jogo.nivel++;
+        jogo.objetivo = (jogo.nivel * 2) * 5;
         jogo.game.nextLevel();
     }
 }
