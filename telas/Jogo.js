@@ -40,7 +40,7 @@ jogo.carro = {
 let posicoes = [-75, 25];
 
 jogo.enimigos = [
-    { tipo: 1, x: 537, y: -100, largura: 50, altura: 100 }
+    { x: 537, y: -100, largura: 50, altura: 100 }
 ];
 
 function Controlefaixas(faixas, altura) {
@@ -105,9 +105,7 @@ jogo.Atualizar = (dimensao) => {
             });
             let ult = jogo.enimigos[jogo.enimigos.length - 1];
             if (ult.y > dimensao.y / 2) {
-                let tipo = (Math.floor(Math.random() * 2));
-                if (tipo == 1) jogo.enimigos.push({ tipo: tipo, x: dimensao.x / 2 + posicoes[(Math.floor(Math.random() * 2))], y: -100, largura: 50, altura: 100 });
-                else jogo.enimigos.push({ tipo: tipo, x: dimensao.x / 2 + posicoes[(Math.floor(Math.random() * 2))], y: -100, largura: 50, altura: 120 });
+                jogo.enimigos.push({ x: dimensao.x / 2 + posicoes[(Math.floor(Math.random() * 2))], y: -100, largura: 50, altura: 100 });
             }
         }
 
@@ -119,8 +117,7 @@ jogo.Atualizar = (dimensao) => {
 
 let enimigo1Img = new Image();
 enimigo1Img.src = "./assets/carro2.png";
-let enimigo2Img = new Image();
-enimigo2Img.src = "./assets/ambulancia.png";
+
 
 jogo.Draw = (ctx, dimensao) => {
     ctx.fillStyle = 'green';
@@ -151,8 +148,7 @@ jogo.Draw = (ctx, dimensao) => {
     jogo.enimigos.forEach(enimigo => {
         // ctx.fillStyle = 'blue';
         // ctx.fillRect(enimigo.x, enimigo.y, enimigo.largura, enimigo.altura);
-        if (enimigo.tipo == 1) ctx.drawImage(enimigo1Img, 0, 0, 260, 550, enimigo.x, enimigo.y, enimigo.largura, enimigo.altura);
-        else ctx.drawImage(enimigo2Img, 0, 0, 260, 640, enimigo.x, enimigo.y, enimigo.largura, enimigo.altura);
+        ctx.drawImage(enimigo1Img, 0, 0, 260, 550, enimigo.x, enimigo.y, enimigo.largura, enimigo.altura);
 
     });
 

@@ -49,7 +49,7 @@ const ranking = {
     }
 }
 
-ranking.GetRanking();
+// ranking.GetRanking();
 
 const menu = new Tela("Menu", true, ranking);
 
