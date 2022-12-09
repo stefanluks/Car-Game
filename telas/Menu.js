@@ -63,6 +63,8 @@ menu.faixas = [
 
 let img = new Image();
 img.src = "./assets/carro.png";
+let logo = new Image();
+logo.src = "./assets/logo.png";
 
 menu.carro = {
     img: img,
@@ -113,10 +115,11 @@ menu.Draw = (ctx, dimensao) => {
     });
 
     ctx.font = '70px Arial';
-    ctx.fillStyle = 'black';
-    ctx.fillText("Car Game", dimensao.x / 50, dimensao.y / 4);
-    ctx.fillStyle = 'white';
-    ctx.fillText("Car Game", dimensao.x / 50 + 5, dimensao.y / 4 + 5);
+    // ctx.fillStyle = 'black';
+    // ctx.fillText("Car Game", dimensao.x / 50, dimensao.y / 4);
+    ctx.drawImage(logo, -50, -150, 500, 500);
+    // ctx.fillStyle = 'white';
+    // ctx.fillText("Car Game", dimensao.x / 50 + 5, dimensao.y / 4 + 5);
     ctx.font = '20px Arial';
     ctx.fillStyle = 'white';
     ctx.fillText("Aperte enter para jogar!", dimensao.x / 12, dimensao.y / 3 + 10);
